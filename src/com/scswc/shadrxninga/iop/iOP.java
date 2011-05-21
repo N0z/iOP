@@ -99,7 +99,7 @@ public class iOP extends JavaPlugin{
 	 public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		if(cmd.getName().equalsIgnoreCase("iop")){
 			Player player = (Player) sender;
-			if(!player.isOp()){
+			if(player.isOp()){
 		    reloadConfig();
 		    player.sendMessage(ChatColor.AQUA + "iOP Config Reloaded");
 			}else{
