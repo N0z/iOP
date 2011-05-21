@@ -1,0 +1,13 @@
+name: iOP
+author: shadrxninga
+main: com.scswc.shadrxninga.iop.iOP
+version: 0.6
+commands:
+  IOP:
+    Description: Reloads Config
+    Usage: /iop
+  LIST:
+     aliases: [online, playerlist, people]
+     Description: Displays a list of online players.
+     Usage: /list
+     
