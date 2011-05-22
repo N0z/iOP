@@ -2,8 +2,7 @@
 ---
 Custom Chat Colors for OPs (Requires Bukkit)
 
-[Forum Page](http://forums.bukkit.org/threads/chat-admin-iop-v0-6-custom-chat-colors-for-ops-766-now-with-per-
-player-colors.15254/)
+[Forum Page](http://forums.bukkit.org/threads/chat-admin-iop-v0-6-custom-chat-colors-and-prefixes-for-ops-766-now-with-per-player-colors.15254/)
 
 **Commands**
 
