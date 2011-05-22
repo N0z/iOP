@@ -35,6 +35,10 @@ public class iOP extends JavaPlugin{
 	//Others
 	public static boolean Default;
 	public static boolean coloredList;
+	//Online List
+	static String prefix;
+	static String nameColor;
+	
 	
 	
 	
@@ -115,13 +119,27 @@ public class iOP extends JavaPlugin{
 					World world = this.getServer().getWorlds().get(i);
 					int max = 0;
 					List<Player> wplayer = world.getPlayers();
-					for (Player p :wplayer){
+					
+					for (Player p :wplayer){	
 					max++;
 					}
 					online.append(ChatColor.GRAY + "Online (" + ChatColor.WHITE + max + ChatColor.GRAY + "):");
 					for (Player p : wplayer) {
-						String color = iOPPlayerListener.nameColor;
-						online.append(" " + color + p.getDisplayName() + ChatColor.WHITE);
+						String plys = p.getName();
+						if(p.isOp()){
+							prefix = iOP.load().getString(plys + ".prefix", iOP.opPrefix);
+							prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+							nameColor = iOP.load().getString(plys + ".name", iOP.opNameColor);
+							nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						}else{
+							prefix = iOP.load().getString(plys + ".prefix", iOP.playerPrefix);
+							prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+							nameColor = iOP.load().getString(plys + ".name", iOP.playerMsgColor);
+							nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						}
+						String color = nameColor;
+						String colorp = prefix;
+						online.append(" " + colorp + color + p.getDisplayName() + ChatColor.WHITE);
 					}
 						sender.sendMessage(online.toString());
 				
