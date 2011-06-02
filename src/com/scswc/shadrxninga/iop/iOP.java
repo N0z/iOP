@@ -1,18 +1,22 @@
 package com.scswc.shadrxninga.iop;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
 
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
@@ -24,23 +28,28 @@ public class iOP extends JavaPlugin{
 	//Logging!!
 	public static final Logger log = Logger.getLogger("Minecraft");
 	
+	Configuration config;
+	
+	
+	// Config variables
+
 	//OP Variables
 	static String opNameColor;
 	static String opMsgColor;
 	static String opPrefix;
+	static String opSuffix;
 	//Player variables
 	static String playerNameColor;
 	static String playerMsgColor;
 	static String playerPrefix;
+	static String playerSuffix;
 	//Others
 	public static boolean Default;
 	public static boolean coloredList;
 	//Online List
 	static String prefix;
 	static String nameColor;
-	
-	
-	
+	static String suffix;
 	
 	
 	
@@ -64,7 +73,6 @@ public class iOP extends JavaPlugin{
 		
 	}
 	
-	
 	 public void reloadConfig(){
 		 load().load();	
 		 //Load the OPs Name Colors and Prefixes
@@ -72,15 +80,21 @@ public class iOP extends JavaPlugin{
 		 opNameColor= opNameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 		 opMsgColor = load().getString("OP-MsgColor", "1");
 		 opMsgColor = opMsgColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-		 opPrefix = load().getString("OP-Prefix", "Admin");
+		 opPrefix = load().getString("OP-Prefix", "");
 		 opPrefix = opPrefix.replaceAll("&([0-9a-fA-F])", "\u00A7$1");
-		//Load the OPs Name Colors and Prefixes
+		 opSuffix = load().getString("OP-Suffix", "");
+		 opSuffix = opSuffix.replaceAll("&([0-9a-fA-F])", "\u00A7$1");
+
+		 //Load the OPs Name Colors and Prefixes
 		 playerNameColor = load().getString("Player-NameColor", "&f");
 		 playerNameColor = playerNameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 		 playerMsgColor = load().getString("Player-MsgColor", "&f");
 		 playerMsgColor = playerMsgColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 		 playerPrefix = load().getString("Player-Prefix", "&f");
 		 playerPrefix = playerPrefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+		 playerSuffix = load().getString("Player-Suffix", "");
+		 playerSuffix = playerSuffix.replaceAll("&([0-9a-fA-F])", "\u00A7$1");
+		 
 		 Default = load().getBoolean("Normal Chat", true);
 		 coloredList = load().getBoolean("Colored Online List", true);
 		 //save
@@ -88,7 +102,6 @@ public class iOP extends JavaPlugin{
 	 }
 		
 
-	 
 	 private static final File myfile= new File("plugins/iOP/config.yml");
 	 public static Configuration load() {
 	         try {
@@ -113,51 +126,43 @@ public class iOP extends JavaPlugin{
 		}
 	    	
 	     if(coloredList == true){
-			if(cmd.getName().equalsIgnoreCase("list")){
-				StringBuilder online = new StringBuilder();
-				for (int i = 0; i < this.getServer().getWorlds().size(); i++) {
-					World world = this.getServer().getWorlds().get(i);
-					int max = 0;
-					List<Player> wplayer = world.getPlayers();
-					
-					for (Player p :wplayer){	
-					max++;
-					}
-					online.append(ChatColor.GRAY + "Online (" + ChatColor.WHITE + max + ChatColor.GRAY + "):");
-					for (Player p : wplayer) {
-						String plys = p.getName();
-						if(p.isOp()){
-							prefix = iOP.load().getString(plys + ".prefix", iOP.opPrefix);
-							prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-							nameColor = iOP.load().getString(plys + ".name", iOP.opNameColor);
-							nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+	    		    	 
+	    	 
+	    	 
+	    	 
+	    	 
+	    	if(cmd.getName().equalsIgnoreCase("list")){
+	    		
+	    		
+	    		
+	    		Player[] onlinePlayers = getServer().getOnlinePlayers();
+	    		List<String> players = new ArrayList<String>();
+	    		for(Player who : onlinePlayers) {
+	    			String who2 = who.getName();
+	    			if(who.isOp()){
+						prefix = iOP.load().getString(who2 + ".prefix", iOP.opPrefix);
+						prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						nameColor = iOP.load().getString(who2 + ".name", iOP.opNameColor);
+						nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						suffix = iOP.load().getString(who2 + ".suffix", iOP.opSuffix);
+						suffix = suffix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+
 						}else{
-							prefix = iOP.load().getString(plys + ".prefix", iOP.playerPrefix);
-							prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-							nameColor = iOP.load().getString(plys + ".name", iOP.playerMsgColor);
-							nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-						}
-						String color = nameColor;
-						String colorp = prefix;
-						online.append(" " + colorp + color + p.getDisplayName() + ChatColor.WHITE);
+						prefix = iOP.load().getString(who2 + ".prefix", iOP.playerPrefix);
+						prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						nameColor = iOP.load().getString(who2 + ".name", iOP.playerMsgColor);
+						nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+						suffix = iOP.load().getString(who2 + ".suffix", iOP.playerSuffix);
+						suffix = suffix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
+
 					}
-						sender.sendMessage(online.toString());
-				
-				}
-	 
-				
-			}
-			return false;
-		
-	 }else{
-		 return false;
+	    			players.add(prefix + nameColor + who.getDisplayName()  + suffix + ChatColor.WHITE);
+	    		}
+	    		sender.sendMessage(players.toString());
+	    	}
+	     }
+		return false;
 	 }
-		 
 }
-	 
-	  
-}
-
-
-
+	    	
 	

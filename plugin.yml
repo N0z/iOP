@@ -1,7 +1,7 @@
 name: iOP
 author: shadrxninga
 main: com.scswc.shadrxninga.iop.iOP
-version: 0.6
+version: 0.7
 commands:
   IOP:
     Description: Reloads Config
