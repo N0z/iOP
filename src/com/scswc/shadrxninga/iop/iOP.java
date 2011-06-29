@@ -121,7 +121,7 @@ public class iOP extends JavaPlugin{
 			}else{
 				sender.sendMessage(ChatColor.RED + "You don't have permission");
 			}
-			
+			return true;
 		}
 	    	
 	     if(coloredList == true){
@@ -158,6 +158,7 @@ public class iOP extends JavaPlugin{
 	    			players.add(prefix + nameColor + who.getDisplayName()  + suffix + ChatColor.WHITE);
 	    		}
 	    		sender.sendMessage(players.toString());
+				return true;
 	    	}
 	     }
 		return false;
