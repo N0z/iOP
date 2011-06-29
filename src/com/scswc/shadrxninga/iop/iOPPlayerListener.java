@@ -44,7 +44,7 @@ if(ply.isOp()){
 			prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 			suffix = iOP.load().getString(plys + ".suffix", iOP.playerSuffix);
 			suffix = suffix.replaceAll("&([0-9a-fA-F])", "\u00A7$1");
-			nameColor = iOP.load().getString(plys + ".name", iOP.playerMsgColor);
+			nameColor = iOP.load().getString(plys + ".name", iOP.playerNameColor);
 			nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 			msgColor = iOP.load().getString(plys + ".msg", iOP.playerMsgColor);
 			msgColor = msgColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");

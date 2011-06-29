@@ -149,7 +149,7 @@ public class iOP extends JavaPlugin{
 						}else{
 						prefix = iOP.load().getString(who2 + ".prefix", iOP.playerPrefix);
 						prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-						nameColor = iOP.load().getString(who2 + ".name", iOP.playerMsgColor);
+						nameColor = iOP.load().getString(who2 + ".name", iOP.playerNameColor);
 						nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 						suffix = iOP.load().getString(who2 + ".suffix", iOP.playerSuffix);
 						suffix = suffix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
