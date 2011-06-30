@@ -115,14 +115,13 @@ public class iOP extends JavaPlugin{
 	     }
 	 public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		if(cmd.getName().equalsIgnoreCase("iop")){
-			Player player = (Player) sender;
-			if(player.isOp()){
+			if(sender.isOp()){
 		    reloadConfig();
-		    player.sendMessage(ChatColor.AQUA + "iOP Config Reloaded");
+		    sender.sendMessage(ChatColor.AQUA + "iOP Config Reloaded");
 			}else{
-				player.sendMessage(ChatColor.RED + "You don't have permission");
+				sender.sendMessage(ChatColor.RED + "You don't have permission");
 			}
-			
+			return true;
 		}
 	    	
 	     if(coloredList == true){
@@ -150,7 +149,7 @@ public class iOP extends JavaPlugin{
 						}else{
 						prefix = iOP.load().getString(who2 + ".prefix", iOP.playerPrefix);
 						prefix = prefix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
-						nameColor = iOP.load().getString(who2 + ".name", iOP.playerMsgColor);
+						nameColor = iOP.load().getString(who2 + ".name", iOP.playerNameColor);
 						nameColor = nameColor.replaceAll("&([0-9a-fA-F])","\u00A7$1");
 						suffix = iOP.load().getString(who2 + ".suffix", iOP.playerSuffix);
 						suffix = suffix.replaceAll("&([0-9a-fA-F])","\u00A7$1");
@@ -159,6 +158,7 @@ public class iOP extends JavaPlugin{
 	    			players.add(prefix + nameColor + who.getDisplayName()  + suffix + ChatColor.WHITE);
 	    		}
 	    		sender.sendMessage(players.toString());
+				return true;
 	    	}
 	     }
 		return false;
